@@ -10,16 +10,12 @@ Pick a resource, for example `unicorns`.
 ## Setup
 
 1. Testing changes
-   * Create separate folders for `unit` and `e2e` tests in the `test` directory
-   * Modify `scripts` in `package.json` (_see in-class example_!)
-      * add `--recursive` to running mocha
-      * create separate `test:unit` and `test:e2e` scripts (plus watch scripts)
-   * (Don't forget to modify test path or add `--recursive` to mocha when debugging!)
+   * Create `e2e` tests in the `test` directory
 2. Connecting to mongodb with mongoose:
    * Create `lib/connect.js`
    * Open connection mongoose in:
       * `server.js`
-      * `test/e2e/db.js` 
+      * `test/db.js` 
 3. Create an express app that uses a `lib` folder with a `models` folder and a `routes` folder.
 4. Add test `MONGODB_URI` to `.travis.yml`
 
@@ -34,7 +30,6 @@ Pick a resource, for example `unicorns`.
     * Unit test a successful model and test validations fail correctly.
 * Create HTTP REST routes:
     * Write E2E API tests and routes for all of the exposed routes
-        * Use `lean` for all GETs and `select` where apprioriate (at least get all)
     * Routes are:
         * `GET /resources` list ([]) of all the resources. Limit the returned fields
         * `GET /resources/:id` return single resource object with that id (or 404 if doesn't exist)
@@ -48,6 +43,6 @@ Pick a resource, for example `unicorns`.
 
 * Resource
     * Schema and Model **2pts**
-    * Model Unit Tests **2pts**
+    * Model e2e Tests **2pts**
 * Use Model and instance methods in routes **1pt** each = **5pts**
 * Queryable GET **1pt**
