@@ -100,4 +100,13 @@ describe('albums DB', () => {
                 expect(res.body).toEqual(createdAlbums[1]);
             });
     });
+
+    it('updates an album when supplied the album\'s id', () => {
+        return request(app)
+            .put(`/api/albums/${createdAlbums[1]._id}`)
+            .send({ albumName: 'Abbey Road' })
+            .then(res => {
+                expect(res.body).toEqual({ ...createdAlbums[1], albumName: 'Abbey Road' })
+            });
+    });
 });
