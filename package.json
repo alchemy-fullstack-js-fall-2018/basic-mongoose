@@ -1,0 +1,37 @@
+{
+  "name": "basic-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "coverage": "jest --coverage --detectOpenHandles",
+    "jest": "jest --verbose",
+    "test": "npm run jest",
+    "test:watch": "npm run jest -- --watch",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyLuras/basic-mongoose.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyLuras/basic-mongoose/issues"
+  },
+  "homepage": "https://github.com/RyLuras/basic-mongoose#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.3.1"
+  },
+  "devDependencies": {
+    "chance": "^1.0.16",
+    "dotenv": "^6.0.0",
+    "eslint": "^5.6.1",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4",
+    "supertest": "^3.3.0"
+  }
+}
