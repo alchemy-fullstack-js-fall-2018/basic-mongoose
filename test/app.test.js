@@ -85,6 +85,16 @@ describe('celebs', () => {
             });
     });
 
+    it('gets all celebs with name prop "mel gibson" in our db', () => {
+        return request(app)
+            .get('/api/celebs')
+            .query({ name: 'Barack Obama' })
+            .then(retrievedCeleb => {
+                expect(retrievedCeleb.body[0]).toEqual(createdCelebs[0]);
+            });
+    });
+  
+
     it('gets a celeb by id on get in our db', () => {
         return request(app)
             .get(`/api/celebs/${createdCelebs[0]._id}`)
