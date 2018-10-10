@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('../lib/mongoose-connector');
 const { createServer } = require('http');
 const app = require('./lib/app');
 
