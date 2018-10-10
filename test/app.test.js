@@ -59,5 +59,23 @@ describe('VideoGames pub/sub API', () => {
                 });
             });
     });
+
+    it('gets all games', () => {
+        return request(app)
+            .get('/api/video-games')
+            .then(retrievedGames => {
+                createdGames.forEach(createdGames => {
+                    expect(retrievedGames.body).toContainEqual(createdGames);
+                });
+            });
+    });
+
+    it('gets a game by id', () => {
+        return request(app)
+            .get(`/api/video-games/${createdGames[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual(createdGames[0]);
+            });
+    });
 });
 
