@@ -69,4 +69,14 @@ describe('knock knock jokes API', () => {
         });
     });
 
+    it('gets all jokes', () => {
+        return request(app)
+            .get('/api/jokes')
+            .then(res => {
+                expect(res.body).toContainEqual(createdJokes[0]);
+                expect(res.body).toContainEqual(createdJokes[1]);
+                expect(res.body).toContainEqual(createdJokes[2]);
+            });
+    });
+
 });
