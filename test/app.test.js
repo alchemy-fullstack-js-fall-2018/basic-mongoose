@@ -81,9 +81,9 @@ describe('knock knock jokes API', () => {
 
     it('gets a joke by id', () => {
         return request(app)
-            .get(`/api/jokes/${createdJokes[2]}`)
+            .get(`/api/jokes/${createdJokes[2]._id}`)
             .then(res => {
-                expect(res.body).toContainEqual(createdJokes[2]);
+                expect(res.body).toEqual(createdJokes[2]);
             });
     });
 
