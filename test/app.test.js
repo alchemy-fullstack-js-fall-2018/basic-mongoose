@@ -81,4 +81,11 @@ describe('cafe API', () => {
                 });
             });
     });
+
+    it('gets a cafe by ID on GET', () => {
+        return request(app).get(`/api/cafes/${createdCafes[0]._id}`)
+            .then(retrievedCafe => {
+                expect(retrievedCafe.body).toEqual(createdCafes[0]);
+            });
+    });
 });
