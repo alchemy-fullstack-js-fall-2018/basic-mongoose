@@ -1,0 +1,41 @@
+{
+  "name": "basic-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "coverage": "jest --coverage --detectOpenHandles",
+    "test": "npm run jest",
+    "jest": "jest --verbose",
+    "test:watch": "npm run jest -- --watch",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acrankin/basic-mongoose.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acrankin/basic-mongoose/issues"
+  },
+  "homepage": "https://github.com/acrankin/basic-mongoose#readme",
+  "devDependencies": {
+    "chance": "^1.0.16",
+    "eslint": "^5.6.1",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4",
+    "supertest": "^3.3.0"
+  },
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.3.2"
+  }
+}
