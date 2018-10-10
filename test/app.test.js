@@ -68,16 +68,32 @@ describe('game pub/sub API', () => {
             });
     });
 
-    it('deletes a game by id', () => {
+    it('gets a game by query', () => {
         return request(app)
-            .delete(`/games/${createdGames[0]._id}`)
-            .then (() => request(app).get(`/games/${createdGames[0]._id}`))
+            .get('/games?type=communication')
             .then(res => {
-                expect(res.body).toEqual(null);
+                expect(res.body).toEqual(createdGames[1]);
             });
     });
 
-    it('updates a game by id', () => {
+    it('deletes an existing game by id and returns true', () => {
+        return request(app)
+            .delete(`/games/${createdGames[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: true });
+            });
+    });
+
+    it('tries to delete a non-existing game by id and returns false', () => {
+        const bogusId = '123456789012345678901234';
+        return request(app)
+            .delete(`/games/${bogusId}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: false });
+            });
+    });
+
+    it('updates a game by id and returns updated version', () => {
         const newGameData = { title: 'Settlers of Catan', mechanics: { numPlayers: 6, minutesPerGame: 30 }, type: 'communication' };
         return request(app)
             .put(`/games/${createdGames[1]._id}`)
