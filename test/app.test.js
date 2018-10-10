@@ -72,4 +72,13 @@ describe('cafe API', () => {
                 });
             });
     });
+
+    it('gets all cafes on GET', () => {
+        return request(app).get('/api/cafes')
+            .then(retrievedCafes => {
+                createdCafes.forEach(createdCafe => {
+                    expect(retrievedCafes.body).toContainEqual(createdCafe);
+                });
+            });
+    });
 });
