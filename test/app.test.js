@@ -39,7 +39,7 @@ describe('VideoGames pub/sub API', () => {
         mongoose.disconnect();
     });
 
-    it('creates an game on post', () => {
+    it('creates an game on post passing validators', () => {
         return request(app)
             .post('/api/video-games')
             .send({
