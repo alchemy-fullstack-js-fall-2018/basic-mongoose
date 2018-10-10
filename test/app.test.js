@@ -84,8 +84,8 @@ describe('cafe API', () => {
 
     it('gets a cafe by ID on GET', () => {
         return request(app).get(`/api/cafes/${createdCafes[0]._id}`)
-            .then(retrievedCafe => {
-                expect(retrievedCafe.body).toEqual(createdCafes[0]);
+            .then(res => {
+                expect(res.body).toEqual({ ...createdCafes[0], __v: expect.any(Number) });
             });
     });
 });
