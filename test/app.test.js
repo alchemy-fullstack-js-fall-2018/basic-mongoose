@@ -48,7 +48,7 @@ describe('celebs', () => {
         mongoose.disconnect();
     });
 
-    it('creates a celeb', () => {
+    it('creates a celeb on post in our db', () => {
         return request(app)
             .post('/api/celebs')
             .send({
@@ -72,6 +72,24 @@ describe('celebs', () => {
                     },
                     known: ['being racist', 'braveheart', 'hating the jews']
                 });
+            });
+    });
+
+    it('gets all celebs on get in our db', () => {
+        return request(app)
+            .get('/api/celebs')
+            .then(retrievedCelebs => {
+                createdCelebs.forEach(createdCeleb => {
+                    expect(retrievedCelebs.body).toContainEqual(createdCeleb);
+                });
+            });
+    });
+
+    it('gets a celeb by id on get in our db', () => {
+        return request(app)
+            .get(`/api/celebs/${createdCelebs[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual(createdCelebs[0]);
             });
     });
 });
