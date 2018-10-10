@@ -28,7 +28,6 @@ describe('knock knock jokes API', () => {
             forKids: false,
             rating: 0
         }
-
     ];
 
     let createdJokes;
@@ -120,5 +119,12 @@ describe('knock knock jokes API', () => {
             });
     });
 
-
+    it('gets all jokes that match a query', () => {
+        return request(app)
+            .get('/api/jokes')
+            .query({ category: 'onomatopoeia' })
+            .then(res => {
+                expect(res.body).toContainEqual(createdJokes[1]);
+            });
+    });
 });
