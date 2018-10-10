@@ -3,7 +3,7 @@ require('../lib/connect')();
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app');
-const Cars = require('../lib/models/Cars');
+const Cars = require('../lib/models/Car');
 const Chance = require('chance');
 const chance = new Chance();
 
@@ -82,9 +82,19 @@ describe('all about cars', () => {
 
     it('updates car info', () => {
         return request(app).put(`/api/cars/${createdCars[0]._id}`)
-            .send({ type: 'used', make: 'bmw', year: '2018', models: 'm3' })
+            .send({
+                type: 'Used', 
+                make: 'BMW', 
+                year: 2018 
+            })
             .then(res => {
-                expect(res.body).toEqual({ _id: expect.any(String), type: 'used', make: 'bmw', year: '2018', models: 'm3' });
+                expect(res.body).toEqual({
+                    _id: expect.any(String),
+                    __v: expect.any(Number), 
+                    type: 'Used', 
+                    make: 'BMW', 
+                    year: 2018 
+                });
             });
     });
 
