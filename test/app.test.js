@@ -28,6 +28,16 @@ describe('albums DB', () => {
                 label: 'Parlophone',
                 releaseDate: new Date('1966-08-05T03:24:00')
             }
+        },
+        { 
+            band: 'Bob Dylan', 
+            albumName: 'Blonde on Blonde', 
+            genre: 'Folk',
+            productionDetails: {
+                producer: 'Bob Johnson',
+                label: 'Columbia',
+                releaseDate: new Date('1966-06-20T03:24:00')
+            }
         }
     ];
 
@@ -98,6 +108,18 @@ describe('albums DB', () => {
             .get(`/api/albums/${createdAlbums[1]._id}`)
             .then(res => {
                 expect(res.body).toEqual(createdAlbums[1]);
+            });
+    });
+
+    it('gets all albums that are rock genre', () => {
+        const rockAlbums = [createdAlbums[0], createdAlbums[1]];
+
+        return request(app)
+            .get('/api/albums/?genre=Rock')
+            .then(retrievedAlbums => {
+                rockAlbums.forEach(rockAlbum => {
+                    expect(retrievedAlbums.body).toContainEqual(rockAlbum);
+                });
             });
     });
 
