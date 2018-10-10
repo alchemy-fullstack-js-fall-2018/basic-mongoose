@@ -105,12 +105,16 @@ describe('VideoGames pub/sub API', () => {
     it('deletes a game', () => {
         return request(app)
             .delete(`/api/video-games/${createdGames[0]._id}`)
-            .then(deletedGame => {
-                return request(app)
-                    .get(`/api/video-games/${deletedGame.body._id}`);
-            })
             .then(res => {
-                expect(res.body).toBeNull();
+                expect(res.body).toEqual({ removed: true });
+            });
+    });
+
+    it('fails to delete a non-existant game', () => {
+        return request(app)
+            .delete('/api/video-games/507f1f77bcf86cd799439011')
+            .then(res => {
+                expect(res.body).toEqual({ removed: false });
             });
     });
 
