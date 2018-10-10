@@ -13,7 +13,7 @@ describe('cafe API', () => {
             name: chance.string(),
             address: {
                 street: chance.string(),
-                city: chance.string(),
+                city: 'Los Angeles',
                 zip: chance.integer(),
             },
             roasters: [
@@ -24,6 +24,24 @@ describe('cafe API', () => {
     });
 
     let createdCafes;
+
+    const createCafe = cafe => {
+        return request(app)
+            .post('/api/cafes')
+            .send(cafe)
+            .then(res => res.body);
+    };
+
+    beforeEach(() => {
+        return Cafe.deleteMany();
+    });
+
+    beforeEach(() => {
+        return Promise.all(cafes.map(createCafe)).then(cafesRes => {
+            createdCafes = cafesRes;
+        });
+    });
+
 
     afterAll(() => {
         mongoose.disconnect();
