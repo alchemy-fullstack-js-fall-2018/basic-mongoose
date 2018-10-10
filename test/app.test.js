@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('../lib/mongoose-connector')();
+require('../lib/connect')();
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app');
@@ -9,12 +9,14 @@ const chance = new Chance();
 
 describe('all about cars', () => {
 
-    let carsArray = Array.apply(null, { length: 100 }).map(() => {
+    let carsArray = Array.apply(null, { length: 3 }).map(() => {
         return {
-            type: 'new',
-            make: 'honda',
+            type: 'Used',
+            make: 'Honda',
             year: chance.year(),
-            models: chance.word()
+            model: {
+                color: 'black',
+            },
         };
     });
 
@@ -28,7 +30,7 @@ describe('all about cars', () => {
     };
 
     beforeEach(() => {
-        return db('cars').then(collection => collection.deleteMany());
+        return Cars.deleteMany();
     });
 
     beforeEach(() => {
@@ -37,22 +39,25 @@ describe('all about cars', () => {
         });
     });
 
+    afterAll(() => {
+        mongoose.disconnect();
+    });
+
     it('creates new car info on post', () => {
         return request(app)
             .post('/api/cars')
             .send({
-                type: 'new',
-                make: 'honda',
-                year: '2018',
-                models: 'accord'
+                type: 'Used',
+                make: 'Honda',
+                year: 2018,
             })
             .then(res => {
                 expect(res.body).toEqual({
                     _id: expect.any(String),
-                    type: 'new',
-                    make: 'honda',
-                    year: '2018',
-                    models: 'accord'
+                    __v: expect.any(Number),
+                    type: 'Used',
+                    make: 'Honda',
+                    year: 2018,
                 });
             });
     });
