@@ -77,7 +77,7 @@ describe('VideoGames pub/sub API', () => {
                 expect(res.body).toEqual(createdGames[0]);
             });
     });
-    
+
     it('deletes a game', () => {
         return request(app)
             .delete(`/api/video-games/${createdGames[0]._id}`)
@@ -87,6 +87,25 @@ describe('VideoGames pub/sub API', () => {
             })
             .then(res => {
                 expect(res.body).toBeNull();
+            });
+    });
+
+    it('updates a game', () => {
+        return request(app)
+            .put(`/api/video-games/${createdGames[5]._id}`)
+            .send({ 
+                title: 'Super Mario World',
+                system: 'Super Nintendo',
+                genre: 'Action Platformer' 
+            })
+            .then(res => {
+                expect(res.body).toEqual({
+                    _id: expect.any(String),
+                    __v: expect.any(Number),
+                    title: 'Super Mario World',
+                    system: 'Super Nintendo',
+                    genre: 'Action Platformer' 
+                });
             });
     });
 });
