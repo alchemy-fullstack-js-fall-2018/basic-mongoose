@@ -109,4 +109,12 @@ describe('albums DB', () => {
                 expect(res.body).toEqual({ ...createdAlbums[1], albumName: 'Abbey Road' })
             });
     });
+
+    it('deletes an album when supplied the album\'s id', () => {
+        return request(app)
+            .delete(`/api/albums/${createdAlbums[1]._id}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: true });
+            });
+    });
 });
