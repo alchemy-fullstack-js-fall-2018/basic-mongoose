@@ -78,6 +78,30 @@ describe('VideoGames pub/sub API', () => {
             });
     });
 
+    it('finds game with query search', () => {
+        return request(app)
+            .post('/api/video-games')
+            .send({
+                title: 'Street Fighter',
+                system: 'Arcade',
+                genre: 'Fighting'
+            })
+            .then(() => {
+                return request(app)
+                    .get('/api/video-games')
+                    .query({ title: 'Street Fighter' })
+                    .then(res => {
+                        expect(res.body[0]).toEqual({
+                            _id: expect.any(String),
+                            __v: expect.any(Number),
+                            title: 'Street Fighter',
+                            system: 'Arcade',
+                            genre: 'Fighting'
+                        });
+                    });
+            });
+    });
+
     it('deletes a game', () => {
         return request(app)
             .delete(`/api/video-games/${createdGames[0]._id}`)
