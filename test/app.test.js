@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app');
 const VideoGame = require('../lib/models/Video-game');
-const Chance = require('chance');
-const chance = new Chance();
 
 
 describe('VideoGames pub/sub API', () => {
@@ -47,7 +45,9 @@ describe('VideoGames pub/sub API', () => {
             .send({
                 title: 'Street Fighter',
                 system: 'Arcade',
-                genre: 'Fighting'
+                genre: 'Fighting',
+                yearReleased: 1980,
+                completed: true
             })
             .then(res => {
                 expect(res.body).toEqual({
@@ -56,7 +56,8 @@ describe('VideoGames pub/sub API', () => {
                     title: 'Street Fighter',
                     system: 'Arcade',
                     genre: 'Fighting',
-                    completed: false
+                    yearReleased: 1980,
+                    completed: true
 
                 });
             });
