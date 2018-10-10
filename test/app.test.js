@@ -65,6 +65,7 @@ describe('all about cars', () => {
     it('gets all cars on get', () => {
         return request(app)
             .get('/api/cars')
+            .query({})
             .then(retrievedCars => {
                 createdCars.forEach(createdCarsInformation => {
                     expect(retrievedCars.body).toContainEqual(createdCarsInformation);
@@ -105,18 +106,18 @@ describe('all about cars', () => {
             });    
     });
 
-    it('returns 404 when there is no method', () => {
+    it('returns 500 when there is no method', () => {
         return request(app)
             .patch('/error')
             .send({})
             .then(res => {
-                expect(res.statusCode).toEqual(404);
+                expect(res.statusCode).toEqual(500);
             });
     });
 
-    it('returns 404 when there is no route or a bad route', () => {
+    it('returns 500 when there is no route or a bad route', () => {
         return request(app).post('/error').then(res => {
-            expect(res.statusCode).toEqual(404);
+            expect(res.statusCode).toEqual(500);
         });
     });
 
