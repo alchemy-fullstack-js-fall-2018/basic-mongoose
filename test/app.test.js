@@ -77,5 +77,17 @@ describe('VideoGames pub/sub API', () => {
                 expect(res.body).toEqual(createdGames[0]);
             });
     });
+    
+    it('deletes a game', () => {
+        return request(app)
+            .delete(`/api/video-games/${createdGames[0]._id}`)
+            .then(deletedGame => {
+                return request(app)
+                    .get(`/api/video-games/${deletedGame.body._id}`);
+            })
+            .then(res => {
+                expect(res.body).toBeNull();
+            });
+    });
 });
 
