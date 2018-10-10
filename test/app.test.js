@@ -84,7 +84,11 @@ describe('game pub/sub API', () => {
             .send(updatedGame)
             .then (() => request(app).get(`/games/${createdGames[1]._id}`))
             .then(res => {
-                expect(res.body.title).toEqual(updatedGame.title);
+                expect(res.body).toEqual({
+                    __v: expect.any(Number),
+                    _id: expect.any(String),
+                    ...updatedGame
+                });
             });
     });
 
