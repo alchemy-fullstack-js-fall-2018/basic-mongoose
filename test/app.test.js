@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('../lib/mongoose-connector');
+require('../lib/mongoose-connector')();
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app.js');
@@ -36,9 +36,7 @@ describe('knock knock jokes API', () => {
     const createJoke = joke => {
         return request(app)
             .post('/api/jokes')
-            .send(joke)
-            //* Why explicitly state this here and not elsewhere?
-            .then(res => console.log('res', res));
+            .send(joke);
     };
 
     beforeEach(() => {
@@ -49,7 +47,7 @@ describe('knock knock jokes API', () => {
     beforeEach(() => {
         return Promise.all(jokes.map(createJoke))
             .then(returnedJokes => {
-                createdJokes = returnedJokes.map(joke => JSON.parse(joke.text));
+                createdJokes = returnedJokes.map(joke => joke.body);
             });
     });
 
@@ -61,6 +59,7 @@ describe('knock knock jokes API', () => {
     it('creates a joke on post', () => {
         //* How do I refactor to remove repetition?
         return expect(createdJokes[0]).toEqual({
+            __v: 0,
             _id: expect.any(String),
             joke1: jokes[0].joke1,
             joke2: jokes[0].joke2,
