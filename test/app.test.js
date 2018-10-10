@@ -101,4 +101,12 @@ describe('celebs', () => {
                 expect(res.body).toEqual({ ...createdCelebs[0], name: 'Bill Clinton' });
             });
     });
+
+    it('deletes a celeb by id on delete in our db', () => {
+        return request(app)
+            .delete(`/api/celebs/${createdCelebs[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: true });
+            });
+    });
 });
