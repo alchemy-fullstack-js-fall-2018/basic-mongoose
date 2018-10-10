@@ -88,4 +88,11 @@ describe('cafe API', () => {
                 expect(res.body).toEqual({ ...createdCafes[0], __v: expect.any(Number) });
             });
     });
+
+    it('deletes a cafe by its ID', () => {
+        return request(app).delete(`/api/cafes/${createdCafes[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: true });    
+            });
+    });
 });
