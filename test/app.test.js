@@ -89,6 +89,32 @@ describe('cafe API', () => {
             });
     });
 
+    it('changes a cafe by its ID', () => {
+        return request(app).put(`/api/cafes/${createdCafes[0]._id}`)
+            .send({ 
+                name: 'Coava',
+                address: {
+                    street: '1300 SE Grand Ave',
+                    city: 'Portland',
+                    zip: 97214
+                },
+                roasters: ['Coava']
+            })
+            .then(res => {
+                expect(res.body).toEqual({
+                    _id: expect.any(String),
+                    __v: 0,
+                    name: 'Coava',
+                    address: {
+                        street: '1300 SE Grand Ave',
+                        city: 'Portland',
+                        zip: 97214
+                    },
+                    roasters: ['Coava']
+                });
+            });
+    });
+
     it('deletes a cafe by its ID', () => {
         return request(app).delete(`/api/cafes/${createdCafes[0]._id}`)
             .then(res => {
