@@ -78,16 +78,15 @@ describe('game pub/sub API', () => {
     });
 
     it('updates a game by id', () => {
-        const updatedGame = { title: 'Settlers of Catan', mechanics: { numPlayers: 6, minutesPerGame: 30 }, type: 'communication' };
+        const newGameData = { title: 'Settlers of Catan', mechanics: { numPlayers: 6, minutesPerGame: 30 }, type: 'communication' };
         return request(app)
             .put(`/games/${createdGames[1]._id}`)
-            .send(updatedGame)
-            .then (() => request(app).get(`/games/${createdGames[1]._id}`))
+            .send(newGameData)
             .then(res => {
                 expect(res.body).toEqual({
                     __v: expect.any(Number),
                     _id: expect.any(String),
-                    ...updatedGame
+                    ...newGameData
                 });
             });
     });
