@@ -108,7 +108,15 @@ describe('knock knock jokes API', () => {
             .put(`/api/jokes/${createdJokes[2]._id}`)
             .send(revisedJoke)
             .then(res => {
-                expect(res.body).toEqual(revisedJoke);
+                expect(res.body).toEqual({
+                    __v: 0,
+                    _id: expect.any(String),
+                    joke1: 'Honeydew.',
+                    joke2: 'Honeydew you know that this pickup line is too lame to use?',
+                    category: 'pick up lines',
+                    forKids: false,
+                    rating: 0
+                });
             });
     });
 
