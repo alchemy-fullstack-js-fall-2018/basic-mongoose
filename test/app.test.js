@@ -91,7 +91,7 @@ describe('knock knock jokes API', () => {
         return request(app)
             .delete(`/api/jokes/${createdJokes[2]._id}`)
             .then(res => {
-                expect(res).toEqual({ removed: true });
+                expect(res.body).toEqual({ removed: true });
             });
     });
 
