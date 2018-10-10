@@ -59,9 +59,15 @@ describe('knock knock jokes API', () => {
     });
 
     it('creates a joke on post', () => {
-        expect(createdJokes[0]).toContainEqual(jokes[0]);
-        expect(createdJokes[1]).toContainEqual(jokes[1]);
-        expect(createdJokes[2]).toContainEqual(jokes[2]);
+        //* How do I refactor to remove repetition?
+        expect(createdJokes[0]).toEqual({
+            _id: expect.any(String),
+            joke1: createdJokes[0].joke1,
+            joke2: createdJokes[0].joke2,
+            category: createdJokes[0].category,
+            forKids: createdJokes[0].forKids,
+            rating: createdJokes[0].rating,
+        });
     });
 
 });
