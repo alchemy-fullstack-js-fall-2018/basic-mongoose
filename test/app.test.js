@@ -79,4 +79,12 @@ describe('knock knock jokes API', () => {
             });
     });
 
+    it('gets a joke by id', () => {
+        return request(app)
+            .get(`/api/jokes/${createdJokes[2]}`)
+            .then(res => {
+                expect(res.body).toContainEqual(createdJokes[2]);
+            });
+    });
+
 });
