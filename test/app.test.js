@@ -106,7 +106,7 @@ describe('albums DB', () => {
             .put(`/api/albums/${createdAlbums[1]._id}`)
             .send({ albumName: 'Abbey Road' })
             .then(res => {
-                expect(res.body).toEqual({ ...createdAlbums[1], albumName: 'Abbey Road' })
+                expect(res.body).toEqual({ ...createdAlbums[1], albumName: 'Abbey Road' });
             });
     });
 
