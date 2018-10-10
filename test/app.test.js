@@ -90,7 +90,7 @@ describe('celebs', () => {
             .get('/api/celebs')
             .query({ name: 'Barack Obama' })
             .then(retrievedCeleb => {
-                expect(retrievedCeleb.body).toContainEqual(createdCelebs[0]);
+                expect(retrievedCeleb.body[0]).toEqual(createdCelebs[0]);
             });
     });
   
