@@ -92,4 +92,12 @@ describe('albums DB', () => {
                 });
             });
     });
+
+    it('gets an album by id', () => {
+        return request(app)
+            .get(`/api/albums/${createdAlbums[1]._id}`)
+            .then(res => {
+                expect(res.body).toEqual(createdAlbums[1]);
+            });
+    });
 });
