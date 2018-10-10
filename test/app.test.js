@@ -7,13 +7,6 @@ const Cars = require('../lib/models/Cars');
 const Chance = require('chance');
 const chance = new Chance();
 
-
-
-
-
-const Chance = require('chance');
-const chance = new Chance();
-
 describe('all about cars', () => {
 
     let carsArray = Array.apply(null, { length: 100 }).map(() => {
