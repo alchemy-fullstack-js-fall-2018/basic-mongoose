@@ -8,9 +8,9 @@ const app = require('../lib/app');
 describe('game pub/sub API', () => {
 
     let seedGames = [
-        { title: 'Blokus', mechanics: { numPlayers: 4, minutesPerGame: 30 }, type: 'strategy' },
-        { title: 'Settlers of Catan', mechanics: { numPlayers: 4, minutesPerGame: 60 }, type: 'communication' },
-        { title: 'Chess', mechanics: { numPlayers: 2, minutesPerGame: 90 }, type: 'dexterity' }
+        { title: 'Blokus', mechanics: { numPlayers: 4, minutesPerGame: 45 }, type: 'strategy' },
+        { title: 'Taboo', mechanics: { numPlayers: 8, minutesPerGame: 30 }, type: 'communication' },
+        { title: 'Suspend', mechanics: { numPlayers: 2, minutesPerGame: 15 }, type: 'dexterity' }
     ];
 
     let createdGames;
@@ -60,19 +60,20 @@ describe('game pub/sub API', () => {
             });
     });
 
+    it('gets a game by query', () => {
+        return request(app)
+            .get('/games')
+            .query({ type: 'communication' })
+            .then(retrievedGame => {
+                expect(retrievedGame.body[0]).toEqual(createdGames[1]);
+            });
+    });
+
     it('gets a game by id', () => {
         return request(app)
             .get(`/games/${createdGames[0]._id}`)
             .then(res => {
                 expect(res.body).toEqual(createdGames[0]);
-            });
-    });
-
-    it('gets a game by query', () => {
-        return request(app)
-            .get('/games?type=communication')
-            .then(res => {
-                expect(res.body).toEqual(createdGames[1]);
             });
     });
 
@@ -94,7 +95,7 @@ describe('game pub/sub API', () => {
     });
 
     it('updates a game by id and returns updated version', () => {
-        const newGameData = { title: 'Settlers of Catan', mechanics: { numPlayers: 6, minutesPerGame: 30 }, type: 'communication' };
+        const newGameData = { title: 'Settlers of Catan', mechanics: { numPlayers: 6, minutesPerGame: 30 }, type: 'strategy' };
         return request(app)
             .put(`/games/${createdGames[1]._id}`)
             .send(newGameData)
