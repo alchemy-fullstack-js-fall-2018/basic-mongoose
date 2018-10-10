@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('..lib/mongoose-connector');
+require('../lib/mongoose-connector');
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app.js');
@@ -56,6 +56,12 @@ describe('knock knock jokes API', () => {
     afterAll(() => {
         //* Why do we do this?
         mongoose.disconnect();
+    });
+
+    it('creates a joke on post', () => {
+        expect(createdJokes[0]).toContainEqual(jokes[0]);
+        expect(createdJokes[1]).toContainEqual(jokes[1]);
+        expect(createdJokes[2]).toContainEqual(jokes[2]);
     });
 
 });
