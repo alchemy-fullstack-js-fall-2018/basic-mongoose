@@ -15,8 +15,8 @@ describe('VideoGames pub/sub API', () => {
     let games = Array.apply(null, { length: 25 }).map(() => {
         return {
             title: 'random game title',
-            system: chance.guid({ version: 4 }),
-            genre: chance.guid({ version: 4 })
+            system: 'Arcade',
+            genre: 'Fighting'
         };
     });
     
@@ -55,7 +55,9 @@ describe('VideoGames pub/sub API', () => {
                     __v: expect.any(Number),
                     title: 'Street Fighter',
                     system: 'Arcade',
-                    genre: 'Fighting'
+                    genre: 'Fighting',
+                    completed: false
+
                 });
             });
     });
@@ -96,7 +98,8 @@ describe('VideoGames pub/sub API', () => {
                             __v: expect.any(Number),
                             title: 'Street Fighter',
                             system: 'Arcade',
-                            genre: 'Fighting'
+                            genre: 'Fighting',
+                            completed: false
                         });
                     });
             });
@@ -123,16 +126,17 @@ describe('VideoGames pub/sub API', () => {
             .put(`/api/video-games/${createdGames[5]._id}`)
             .send({ 
                 title: 'Super Mario World',
-                system: 'Super Nintendo',
-                genre: 'Action Platformer' 
+                system: 'Nintendo',
+                genre: 'Platformer' 
             })
             .then(res => {
                 expect(res.body).toEqual({
                     _id: expect.any(String),
                     __v: expect.any(Number),
                     title: 'Super Mario World',
-                    system: 'Super Nintendo',
-                    genre: 'Action Platformer' 
+                    system: 'Nintendo',
+                    genre: 'Platformer',
+                    completed: false
                 });
             });
     });
