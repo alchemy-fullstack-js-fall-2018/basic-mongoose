@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 require('dotenv').config();
-require('../lib/mongoose-connector');
+require('./lib/mongoose-connector')();
 const { createServer } = require('http');
 const app = require('./lib/app');
 
-const port = 5678;
+const port = 3456;
 
 const server = createServer(app);
 

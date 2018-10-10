@@ -3,7 +3,7 @@ require('../lib/mongoose-connector')();
 const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app');
-const VideoGame =require('../lib/models/Video-game');
+const VideoGame = require('../lib/models/Video-game');
 const Chance = require('chance');
 const chance = new Chance();
 
