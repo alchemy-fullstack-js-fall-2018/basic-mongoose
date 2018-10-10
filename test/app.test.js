@@ -38,7 +38,7 @@ describe('knock knock jokes API', () => {
             .post('/api/jokes')
             .send(joke)
             //* Why explicitly state this here and not elsewhere?
-            .then(res => res.body);
+            .then(res => console.log('res', res));
     };
 
     beforeEach(() => {
@@ -48,8 +48,8 @@ describe('knock knock jokes API', () => {
 
     beforeEach(() => {
         return Promise.all(jokes.map(createJoke))
-            .then(jokesRes => {
-                createdJokes = jokesRes;
+            .then(returnedJokes => {
+                createdJokes = returnedJokes.map(joke => JSON.parse(joke.text));
             });
     });
 
@@ -60,13 +60,13 @@ describe('knock knock jokes API', () => {
 
     it('creates a joke on post', () => {
         //* How do I refactor to remove repetition?
-        expect(createdJokes[0]).toEqual({
+        return expect(createdJokes[0]).toEqual({
             _id: expect.any(String),
-            joke1: createdJokes[0].joke1,
-            joke2: createdJokes[0].joke2,
-            category: createdJokes[0].category,
-            forKids: createdJokes[0].forKids,
-            rating: createdJokes[0].rating,
+            joke1: jokes[0].joke1,
+            joke2: jokes[0].joke2,
+            category: jokes[0].category,
+            forKids: jokes[0].forKids,
+            rating: jokes[0].rating
         });
     });
 
