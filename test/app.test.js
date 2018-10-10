@@ -92,4 +92,13 @@ describe('celebs', () => {
                 expect(res.body).toEqual(createdCelebs[0]);
             });
     });
+
+    it('updates a celeb by id on put in our db', () => {
+        return request(app)
+            .put(`/api/celebs/${createdCelebs[0]._id}`)
+            .send({ name: 'Bill Clinton' })
+            .then(res => {
+                expect(res.body).toEqual({ ...createdCelebs[0], name: 'Bill Clinton' });
+            });
+    });
 });
