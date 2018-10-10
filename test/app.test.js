@@ -26,8 +26,36 @@ describe('knock knock jokes API', () => {
             joke2: 'Honeydew you know how fine you look right now?',
             category: 'pick up lines',
             forKids: false,
-            rating: 0.1
-        },
+            rating: 0
+        }
 
     ];
+
+    let createdJokes;
+
+    const createJoke = joke => {
+        return request(app)
+            .post('/api/jokes')
+            .send(joke)
+            //* Why explicitly state this here and not elsewhere?
+            .then(res => res.body);
+    };
+
+    beforeEach(() => {
+        //* Why does this work?  
+        return Joke.deleteMany();
+    });
+
+    beforeEach(() => {
+        return Promise.all(jokes.map(createJoke))
+            .then(jokesRes => {
+                createdJokes = jokesRes;
+            });
+    });
+
+    afterAll(() => {
+        //* Why do we do this?
+        mongoose.disconnect();
+    });
+
 });
