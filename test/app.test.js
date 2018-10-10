@@ -10,8 +10,9 @@ const chance = new Chance();
 describe('otter pub/sub API', () => {
     let otters = Array.apply(null, { length: 10 }).map(() => {
         return {
-            commonName: chance.word(),
+            name: { commonName: chance.word(), latinName: chance.word() },
             status: 'Threatened',
+            areasFound: ['Southeast Asia'],
             numOfPublishedWorks: chance.natural()
         };
     });
@@ -43,16 +44,18 @@ describe('otter pub/sub API', () => {
         return request(app)
             .post('/api/otters')
             .send({
-                commonName: 'Hairy-Nosed Otter',
+                name: { commonName: 'Hairy-Nosed Otter', latinName: 'Lutra Sumatrana' },
                 status: 'Threatened',
+                areasFound: ['Southeast Asia'],
                 numOfPublishedWorks: 4
             })
             .then(res => {
                 expect(res.body).toEqual({
                     _id: expect.any(String),
                     __v: expect.any(Number),
-                    commonName: 'Hairy-Nosed Otter',
+                    name: { commonName: 'Hairy-Nosed Otter', latinName: 'Lutra Sumatrana' },
                     status: 'Threatened',
+                    areasFound: ['Southeast Asia'],
                     numOfPublishedWorks: 4
                 });
             });
