@@ -87,5 +87,13 @@ describe('otter pub/sub API', () => {
                 expect(res.body).toEqual({ ...createdOtters[0], numOfPublishedWorks: 5 }); 
             });
     });
+
+    it('deletes an otter by id', () => {
+        return request(app)
+            .delete(`/api/otters/${createdOtters[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: true });
+            });
+    });
 });
 
