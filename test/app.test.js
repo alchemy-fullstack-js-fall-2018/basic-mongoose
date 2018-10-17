@@ -13,7 +13,7 @@ describe('otter pub/sub API', () => {
             name: { commonName: chance.word(), latinName: chance.word() },
             status: 'Threatened',
             areasFound: ['Southeast Asia'],
-            numOfPublishedWorks: chance.natural()
+            numOfPublishedWorks: chance.natural({ min: 0, max: 20 })
         };
     });
 
