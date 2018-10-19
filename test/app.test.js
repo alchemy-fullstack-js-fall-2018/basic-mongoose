@@ -75,4 +75,14 @@ describe('podcast pub/sub API', () => {
                 expect(res.body).toEqual(createdPodcasts);
             });
     });
+
+    it('updates podcasts', () => {
+        createdPodcasts[0].episodes = 351;
+        return request(app)
+            .put(`/api/podcasts/${createdPodcasts[0]._id}`)
+            .send(createdPodcasts[0])
+            .then(res => {
+                expect(res.body).toEqual(createdPodcasts[0]);
+            });
+    });
 });
