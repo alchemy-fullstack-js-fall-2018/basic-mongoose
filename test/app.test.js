@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../lib/app');
 const Podcast = require('../lib/models/Podcast');
-//const Chance = require('chance');
-//const chance = new Chance();
 
 describe('podcast pub/sub API', () => {
     let podcasts = Array.apply(null, { length: 30 }).map(() => {
