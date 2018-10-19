@@ -85,4 +85,17 @@ describe('podcast pub/sub API', () => {
                 expect(res.body).toEqual(createdPodcasts[0]);
             });
     });
+
+    it('deletes a podcast', () => {
+        return request(app)
+            .delete(`/api/podcasts/${createdPodcasts[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual({ removed: true });
+                return request(app)
+                    .delete(`/api/podcasts/${createdPodcasts[0]._id}`)
+                    .then(res => {
+                        expect(res.body).toEqual({ removed: false });
+                    });
+            });
+    });
 });
