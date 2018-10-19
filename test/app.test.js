@@ -67,4 +67,12 @@ describe('podcast pub/sub API', () => {
                 expect(res.body).toEqual(createdPodcasts[0]);
             });
     });
+
+    it('gets all posdcasts', () => {
+        return request(app)
+            .get('/api/podcasts')
+            .then(res => {
+                expect(res.body).toEqual(createdPodcasts);
+            });
+    });
 });
