@@ -10,11 +10,10 @@ const chance = new Chance();
 describe('podcast pub/sub API', () => {
     let podcasts = Array.apply(null, { length: 30 }).map(() => {
         return {
-            id: chance.guid({ version: 4 }),
             name:'Last Podcast on the Left',
             type: 'murder',
             episodes: 350,
-            length: '60 min'
+            length: 60
         };
     });
     let createdPodcasts;
@@ -44,11 +43,10 @@ describe('podcast pub/sub API', () => {
         return request(app)
             .post('/api/podcasts')
             .send({
-                id: chance.guid({ version: 4 }),
                 name: 'Last Podcast on the Left',
                 type: 'murder',
-                episodes: '350',
-                length: '60 min'
+                episodes: 350,
+                length: 60
             })
             .then(res => {
                 expect(res.body).toEqual({
@@ -56,9 +54,17 @@ describe('podcast pub/sub API', () => {
                     __v: expect.any(Number),
                     name: 'Last Podcast on the Left',
                     type: 'murder',
-                    episodes: '350',
-                    length: '60 min'
+                    episodes: 350,
+                    length: 60
                 });
+            });
+    });
+
+    it('gets podcast by id', () => {
+        return request(app)
+            .get(`/api/podcasts/${createdPodcasts[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual(createdPodcasts[0]);
             });
     });
 });
