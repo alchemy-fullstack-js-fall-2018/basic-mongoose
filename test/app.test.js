@@ -68,9 +68,10 @@ describe('podcast pub/sub API', () => {
             });
     });
 
-    it('gets all posdcasts', () => {
+    it('gets all podcasts', () => {
         return request(app)
             .get('/api/podcasts')
+            .query({ type: 'murder' })
             .then(res => {
                 expect(res.body).toEqual(createdPodcasts);
             });
